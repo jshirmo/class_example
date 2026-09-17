@@ -178,9 +178,85 @@
       font-size: 0.9rem;
     }
 
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .demo-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .demo-card h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1.1rem;
+    }
+
+    .demo-card .explain {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0 0 1rem;
+    }
+
+    .demo-box {
+      background: var(--bg-alt);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      min-height: 3.5rem;
+    }
+
+    .demo-box .count {
+      font-weight: 700;
+      font-size: 1.25rem;
+      min-width: 1.5rem;
+      text-align: center;
+    }
+
+    .swatch {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 6px;
+      background: var(--accent);
+      transition: background 0.15s ease;
+    }
+
+    .swatch-alt {
+      background: #16a34a;
+    }
+
+    pre {
+      background: #1a1a1a;
+      color: #e5e7eb;
+      padding: 0.9rem 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    :not(pre) > code {
+      background: var(--bg-alt);
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
     @media (max-width: 600px) {
       nav ul { gap: 1rem; }
-      nav ul li:nth-child(n+3) { display: none; }
+      nav ul li:nth-child(n+4) { display: none; }
     }
   </style>
 </head>
@@ -190,6 +266,7 @@
       <span class="brand">Class Example</span>
       <ul>
         <li><a href="#about">About</a></li>
+        <li><a href="#demos">Demos</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -209,6 +286,54 @@
     <h2>About</h2>
     <p class="section-sub">What this repository is for.</p>
     <p>This site is served directly from the <code>main</code> branch using GitHub Pages. It started as a bare repository with only a README, and grew into a working static page — a simple example of the full loop from empty repo to a live, deployed site.</p>
+  </section>
+
+  <section id="demos">
+    <h2>Demonstrations</h2>
+    <p class="section-sub">Small, self-contained examples of how a page like this works — each one live on the page, with the code behind it.</p>
+    <div class="demo-grid">
+
+      <div class="demo-card">
+        <h3>1. Structure: HTML</h3>
+        <p class="explain">Every element on this page is an HTML tag. A heading uses <code>&lt;h1&gt;</code>&ndash;<code>&lt;h6&gt;</code>, a paragraph uses <code>&lt;p&gt;</code>, and a link uses <code>&lt;a&gt;</code>.</p>
+        <div class="demo-box">
+          <p style="margin:0;">This box <a href="#demos">is a link</a> inside a paragraph.</p>
+        </div>
+        <pre><code>&lt;p&gt;
+  This box &lt;a href="#demos"&gt;is a link&lt;/a&gt;
+  inside a paragraph.
+&lt;/p&gt;</code></pre>
+      </div>
+
+      <div class="demo-card">
+        <h3>2. Style: CSS</h3>
+        <p class="explain">CSS changes how HTML looks without changing the content. Click the button to swap the swatch's background color by toggling a class.</p>
+        <div class="demo-box">
+          <div class="swatch" id="swatch"></div>
+          <button class="btn btn-secondary" onclick="document.getElementById('swatch').classList.toggle('swatch-alt')">Toggle color</button>
+        </div>
+        <pre><code>.swatch { background: var(--accent); }
+.swatch-alt { background: #16a34a; }
+
+button.onclick = () =&gt;
+  swatch.classList.toggle('swatch-alt');</code></pre>
+      </div>
+
+      <div class="demo-card">
+        <h3>3. Behavior: JavaScript</h3>
+        <p class="explain">JavaScript makes a page interactive. This button updates a number stored in memory each time it's clicked.</p>
+        <div class="demo-box">
+          <button class="btn btn-primary" id="counter-btn">Click me</button>
+          <span class="count" id="counter-value">0</span>
+        </div>
+        <pre><code>let count = 0;
+button.addEventListener('click', () =&gt; {
+  count++;
+  display.textContent = count;
+});</code></pre>
+      </div>
+
+    </div>
   </section>
 
   <section class="alt" id="projects">
@@ -241,5 +366,15 @@
   <footer>
     &copy; 2026 Class Example &middot; <a href="https://github.com/jshirmo/class_example">github.com/jshirmo/class_example</a>
   </footer>
+
+  <script>
+    let count = 0;
+    const button = document.getElementById('counter-btn');
+    const display = document.getElementById('counter-value');
+    button.addEventListener('click', () => {
+      count++;
+      display.textContent = count;
+    });
+  </script>
 </body>
 </html>
